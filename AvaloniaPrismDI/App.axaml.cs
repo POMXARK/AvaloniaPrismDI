@@ -47,5 +47,24 @@ namespace AvaloniaPrismDI
             Console.WriteLine("CreateShell()");
             return Container.Resolve<MainWindow>();
         }
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            Console.WriteLine("RegisterTypes()");
+
+            // Services
+            //// containerRegistry.RegisterSingleton<ILogService, LogService>();
+
+            // Views - Generic
+            containerRegistry.Register<MainWindow>();
+        }
+
+        /// <summary>User interface entry point, called after Register and ConfigureModules.</summary>
+        /// <returns>Startup View.</returns>
+        protected override IAvaloniaObject CreateShell()
+        {
+            Console.WriteLine("CreateShell()");
+            return Container.Resolve<MainWindow>();
+        }
     }
 }
