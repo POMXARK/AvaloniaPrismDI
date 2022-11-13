@@ -20,7 +20,6 @@ namespace AvaloniaPrismDI
         //  Therefore, we need this as a `public override void` in PrismApplicationBase.cs
         public override void Initialize()
         {
-            Console.WriteLine("Initialize()");
             AvaloniaXamlLoader.Load(this);
 
             // DON'T FORGET TO CALL THIS
@@ -29,7 +28,6 @@ namespace AvaloniaPrismDI
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            Console.WriteLine("RegisterTypes()");
 
             // Services
             //// containerRegistry.RegisterSingleton<ILogService, LogService>();
@@ -42,26 +40,6 @@ namespace AvaloniaPrismDI
         /// <returns>Startup View.</returns>
         protected override IAvaloniaObject CreateShell()
         {
-            Console.WriteLine("CreateShell()");
-            return Container.Resolve<MainWindow>();
-        }
-
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            Console.WriteLine("RegisterTypes()");
-
-            // Services
-            //// containerRegistry.RegisterSingleton<ILogService, LogService>();
-
-            // Views - Generic
-            containerRegistry.Register<MainWindow>();
-        }
-
-        /// <summary>User interface entry point, called after Register and ConfigureModules.</summary>
-        /// <returns>Startup View.</returns>
-        protected override IAvaloniaObject CreateShell()
-        {
-            Console.WriteLine("CreateShell()");
             return Container.Resolve<MainWindow>();
         }
     }
