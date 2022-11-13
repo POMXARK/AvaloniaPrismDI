@@ -3,27 +3,49 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using AvaloniaPrismDI.ViewModels;
 using AvaloniaPrismDI.Views;
+using Prism.DryIoc;
+using Prism.Ioc;
+using System;
 
 namespace AvaloniaPrismDI
 {
-    public partial class App : Application
+    /// <summary>
+    ///   Application entry point.
+    ///   The methods in this file are layed out in their respective calling order
+    ///   to help you learn the order of operation.
+    /// </summary>
+    public class App : PrismApplication
     {
+        // Note:
+        //  Though, Prism.WPF v8.1 uses, `protected virtual void Initialize()`
+        //  Avalonia's AppBuilderBase.cs calls, `.Setup() { ... Instance.Initialize(); ... }`
+        //  Therefore, we need this as a `public override void` in PrismApplicationBase.cs
         public override void Initialize()
         {
+            Console.WriteLine("Initialize()");
             AvaloniaXamlLoader.Load(this);
+
+            // DON'T FORGET TO CALL THIS
+            base.Initialize();
         }
 
-        public override void OnFrameworkInitializationCompleted()
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = new MainWindowViewModel(),
-                };
-            }
+            Console.WriteLine("RegisterTypes()");
 
-            base.OnFrameworkInitializationCompleted();
+            // Services
+            //// containerRegistry.RegisterSingleton<ILogService, LogService>();
+
+            // Views - Generic
+            containerRegistry.Register<MainWindow>();
+        }
+
+        /// <summary>User interface entry point, called after Register and ConfigureModules.</summary>
+        /// <returns>Startup View.</returns>
+        protected override IAvaloniaObject CreateShell()
+        {
+            Console.WriteLine("CreateShell()");
+            return Container.Resolve<MainWindow>();
         }
     }
 }
