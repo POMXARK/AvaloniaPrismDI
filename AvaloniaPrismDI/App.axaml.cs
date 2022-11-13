@@ -1,7 +1,5 @@
 using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using AvaloniaPrismDI.ViewModels;
 using AvaloniaPrismDI.Views;
 using Prism.DryIoc;
 using Prism.Ioc;

@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using AvaloniaPrismDI.ViewModels;
 using System;
-using System.ComponentModel;
+
 
 namespace AvaloniaPrismDI
 {
